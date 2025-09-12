@@ -56,3 +56,42 @@ document.querySelector('.again').addEventListener('click', function () {
   document.querySelector('.guess').disabled = false;
   document.querySelector('.number').style.width = '15rem';
 });
+
+// ✅ Detect mobile devices
+const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+// ✅ Detect small screen (tablet/phone)
+const isSmallScreen = window.innerWidth < 1024;
+// ✅ Detect language (default: English)
+const lang = navigator.language.startsWith('id') ? 'id' : 'en';
+
+if (isMobile || isSmallScreen) {
+  let messageTitle, messageText;
+
+  if (lang === 'id') {
+    messageTitle = '⚠️ Hanya Tersedia di Desktop';
+    messageText =
+      'Website ini tidak bisa dibuka di perangkat mobile atau tablet. Silakan gunakan komputer (desktop/laptop) untuk pengalaman terbaik.';
+  } else {
+    messageTitle = '⚠️ Desktop Only';
+    messageText =
+      'This website cannot be accessed on mobile or tablet devices. Please use a computer (desktop/laptop) for the best experience.';
+  }
+
+  document.body.innerHTML = `
+    <div style="
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      text-align:center;
+      font-family:sans-serif;
+      background:#f9f9f9;
+      color:#333;
+      padding:20px;
+    ">
+      <h1 style="margin-bottom:16px;">${messageTitle}</h1>
+      <p style="max-width:500px;">${messageText}</p>
+    </div>
+  `;
+}
